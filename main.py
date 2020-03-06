@@ -54,6 +54,20 @@ def vecorize_5chars(cap):
     return v
 
 
+def devectorize_5chars(vec):
+    l = list(vec)
+    res = ['0', '0', '0', '0', '0']
+    p = 0
+    for i in range(5):
+        j = l.index(1, p) - p
+        if j <= 9:  # is digit
+            res[i] = chr(j + 48)
+        else:
+            j = j - 10  # range to [0, 26]
+            res[i] = chr(j + 97)
+        p = p + 36
+    return "".join(res)
+
 DATA_PATH = './samples/'
 samplesFileList = [str(join(DATA_PATH, f)) for f in listdir(DATA_PATH) if isfile(join(DATA_PATH, f))]
 samplesText = [(f.split('/')[-1]).split('.')[0] for f in samplesFileList]
@@ -64,9 +78,9 @@ f = img.imread(captcha)
 
 A = np.random.randint(0, 2, (2, 3, 3))
 
-print(A)
+#print(A)
 
-print(vectorize_img(A))
+#print(vectorize_img(A))
 
 # plt.imshow(newF)
 # plt.show()
